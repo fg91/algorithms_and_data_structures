@@ -2,3 +2,4 @@
 .cpp~
 .ipynb_checkpoints/
 .gitignore~
+__pycache__/
