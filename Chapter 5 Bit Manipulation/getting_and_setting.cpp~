@@ -1,0 +1,12 @@
+// "Copyright 2018 <Fabio M. Graetz>"
+#include <iostream>
+
+using std::cout;
+using std::endl;
+
+
+
+int main() {
+
+  return 0;
+}
