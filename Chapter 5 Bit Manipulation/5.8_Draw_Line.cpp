@@ -1,7 +1,6 @@
 // "Copyright 2018 <Fabio M. Graetz>"
 
 #include <iostream>
-#include <boost/dynamic_bitset.hpp>
 
 using std::cout;
 using std::endl;
