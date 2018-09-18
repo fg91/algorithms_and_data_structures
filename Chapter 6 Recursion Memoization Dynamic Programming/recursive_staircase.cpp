@@ -34,7 +34,7 @@ int64_t countPathsMemo(int steps, vector<int64_t> &memo) {
         + countPathsMemo(steps - 2, memo)
         + countPathsMemo(steps - 3, memo);
     if (memo[steps] < 0) {
-      cout << "Negative number detected! Number of steps too large for int64_t!" << endl;
+      cout << "Negative number detected! Integer overflow" << endl;
     }
   }
   return memo[steps];
@@ -67,7 +67,7 @@ int64_t countPathsDP(int steps) {
   for (int i = 3; i <= steps; i++) {
     paths[i] = paths[i - 1] + paths[i - 2] + paths[i - 3];
     if (paths[i] < 0) {
-      return -1;  // Error code
+      return -1;  // Error code, integer overflow
     }
   }
   return paths[steps];
@@ -91,7 +91,7 @@ int64_t countPathsIterative(int steps) {
     paths[1] = paths[2];
     paths[2] = count;
     if (count < 0) {
-      return -1;  // Error code
+      return -1;  // Error code, integer overflow
     }
   }
   return paths[2];
@@ -99,7 +99,7 @@ int64_t countPathsIterative(int steps) {
 
 int main() {
 
-  // Be aware, that the number of steps can become too large for int64_t if totalSteps is too large!
+  // Be aware, that the number of steps can overflow int64_t if totalSteps is too large!
   
   int totalSteps = 50;
 
