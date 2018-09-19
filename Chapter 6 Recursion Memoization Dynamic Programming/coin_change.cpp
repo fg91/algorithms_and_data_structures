@@ -34,14 +34,14 @@ int64_t makeChange(const vector<int> &coins, int money, int index) {
 }
 
 int64_t makeChange(const vector<int> &coins, int money) {
-  return makeChange(coins, 100, 0);
+  return makeChange(coins, money, 0);
 }
 
 // Method 2: Memoization
 
 int64_t makeChangeMemo(const vector<int> &coins,
                        int money, int index,
-                       map<string, int64_t> &memo) {
+                       map<string, int64_t> *memo) {
   // Base cases
   if (money == 0) {
     return 1;
@@ -55,9 +55,9 @@ int64_t makeChangeMemo(const vector<int> &coins,
   int amountWithCoin = 0;
   int64_t  ways = 0;
 
-  auto it = memo.find(key);
-  if (it != memo.end()) {
-    return memo[key];
+  auto it = memo->find(key);
+  if (it != memo->end()) {
+    return memo->at(key);
   } else {
     while (amountWithCoin <= money) {
       int remaining = money - amountWithCoin;
@@ -65,20 +65,20 @@ int64_t makeChangeMemo(const vector<int> &coins,
       amountWithCoin += coins[index];
     }
   }
-  memo.insert(make_pair(key, ways));
+  memo->insert(make_pair(key, ways));
   return ways;
 }
 
 int64_t makeChangeMemo(const vector<int> &coins, int money) {
   map<string, int64_t> memo;
-  return makeChangeMemo(coins, 100, 0, memo);
+  return makeChangeMemo(coins, money, 0, &memo);
 }
 
 int main() {
   const vector<int> coins({50, 25, 10, 5, 2, 1});
-
-  cout << makeChange(coins, 100) << endl;
-  cout << makeChangeMemo(coins, 100) << endl;
+  
+  cout << makeChange(coins, 200) << endl;
+  cout << makeChangeMemo(coins, 200) << endl;
   
   return 0;
 }
