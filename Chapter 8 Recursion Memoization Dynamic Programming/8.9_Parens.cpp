@@ -3,7 +3,6 @@
 #include <string>
 #include <unordered_set>
 #include <vector>
-#include <sstream>
 
 using std::cout;
 using std::endl;
@@ -55,12 +54,8 @@ void addParens(vector<string> *results, int leftRem,
 }
 
 vector<string> generateParens(int n) {
-  std::stringstream ss;
-  for (int i = 0; i < 2 * n; i++) {
-    ss << " ";
-  }
   vector<string> results;
-  addParens(&results, n, n, ss.str(), 0);
+  addParens(&results, n, n, string(2 * n, ' '), 0);
   return results;
 }
 
@@ -75,5 +70,6 @@ int main() {
   for (string s : generateParens(count)) {
     cout << i++ << "\t" <<s << endl;
   }
+
   return 0;
 }
