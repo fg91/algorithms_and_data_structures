@@ -35,8 +35,9 @@ bool FillColor(vector<vector<Color> > *image, int row, int col, Color ncolor, Co
   return true;
 }
 
-void FillColor(vector<vector<Color> > *image, int row, int col, Color ncolor) {
-  FillColor(image, row, col, ncolor, (*image)[row][col]);
+bool  FillColor(vector<vector<Color> > *image, int row, int col, Color ncolor) {
+  if ((*image)[row][col] == ncolor) return false;
+  return FillColor(image, row, col, ncolor, (*image)[row][col]);
 }
 
 int main() {
