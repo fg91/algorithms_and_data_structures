@@ -30,7 +30,7 @@ bool checkValid(vector<int> *board, int rownew, int colnew) {
   for (int rowold = 0; rowold < rownew; rowold++) {
     int colold = (*board)[rowold];
     // Check if rows have queen in same column
-    if (colnew == (*board)[rowold]) {
+    if (colnew == colold) {
       return false;
     }
     // Check diagonals: distance between rows can't equal
@@ -61,7 +61,7 @@ int main() {
   vector<vector<int> > results;
   placeQueens(0, board, &results);
 
-  cout << results.size() << endl;
+  cout << results.size() << endl << endl;
   for (auto b : results) {
     printBoard(b);
     cout << endl;
