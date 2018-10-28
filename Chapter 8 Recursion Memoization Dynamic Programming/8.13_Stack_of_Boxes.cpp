@@ -29,7 +29,7 @@ class Box {
   }
 };
 
-// --- Solution 1 - Memoization --- //
+// --- Solution 1 --- //
 int getMaxHeight(vector<Box> *boxes, int bottomIndex, vector<int> *memo) {
   // check if in memo
   if (bottomIndex < boxes->size() && memo->at(bottomIndex) > 0) {
@@ -65,14 +65,46 @@ int getMaxHeight(vector<Box> boxes) {
   return maxHeight;
 }
 
-// --- Solution 2 - Memoization --- //
+// --- Solution 2 --- //
 
+int getMaxHeight2(vector<Box> *boxes, Box *bottom, int offset, vector<int> *memo) {
+  // Base case
+  if (offset >= boxes->size()) {
+    return 0;
+  }
+
+  // height with this bottom
+  Box newBottom = boxes->at(offset);
+  int heightWithBottom = 0;
+  if (bottom == nullptr || newBottom < *bottom) {
+    // if not in memo
+    if ((*memo)[offset] == 0) {
+      (*memo)[offset] = getMaxHeight2(boxes, &newBottom, offset + 1, memo);
+      (*memo)[offset] += newBottom.h;
+    }
+    heightWithBottom = (*memo)[offset];
+  }
+  // height without this bottom
+  int heightWithoutBottom = getMaxHeight2(boxes, bottom, offset + 1, memo);
+
+  // return the larger height
+  return fmax(heightWithBottom, heightWithoutBottom);
+}
+
+
+int getMaxHeight2(vector<Box> boxes) {
+  // sort the boxes regarding width
+  sort(boxes.begin(), boxes.end(), [](Box a, Box b) {return a.w > b.w;});
+  vector<int> memo(boxes.size());
+  return getMaxHeight2(&boxes, nullptr, 0, &memo);
+}
 
 int main() {
 
   vector<Box> l{Box{3., 3., 3.}, Box(1., 1., 1.), Box{2., 2., 2.}, Box{3, 4, 5}, Box{1.8, 2.2, 3}};
   
   cout << getMaxHeight(l) << endl;
+  cout << getMaxHeight2(l) << endl;
   
   return 0;
 }
