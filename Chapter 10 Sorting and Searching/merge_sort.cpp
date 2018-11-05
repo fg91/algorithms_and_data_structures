@@ -9,13 +9,6 @@ using std::flush;
 
 #define SIZE 10
 
-void printArr(int arr[], const int size) {
-  for (int i = 0; i < size; i++) {
-    cout << arr[i] << "\t" << flush;
-  }
-  cout << endl;
-}
-
 void mergeHalves(int arr[], int buffer[], int leftStart, int rightEnd) {
   int middle = (leftStart + rightEnd) / 2;
   int leftEnd = middle;
