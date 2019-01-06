@@ -26,7 +26,7 @@ class Cache {
  protected:
   int capacity;
   std::map<int, Node<T>*> mapKeyToNode;
-  Node<T> * head;  // double linked list head
+  Node<T> * head;  // doubly linked list head
   Node<T> * tail;
   virtual void set(int, T) = 0;
   virtual T get(int) = 0;
@@ -35,6 +35,8 @@ class Cache {
 template<class T>
 class LRUCache : public Cache<T> {
  protected:
+
+ public:
   int capacity;
   std::map<int, Node<T>*> mapKeyToNode;
   Node<T> * head;
@@ -61,7 +63,7 @@ class LRUCache : public Cache<T> {
   }
 
   iterator begin() {
-    return iterator(head->value, *this);
+    return iterator(head->key, *this);
   }
 
   iterator end() {
@@ -101,11 +103,11 @@ class LRUCache : public Cache<T> {
       }
     } else {  // Case 2: already contained
       Node<T> * tmp = it->second;
-      // Subcase 2.1: node is head, simply update value
-      if (tmp == head) {
-        head->value = val;
-      } else {  // Subcase 2.2: node is not head
-        if (tmp == tail) {  // Subcase 2.2.1: node is tail
+      tmp->value = val;
+      // Subcase 2.1: node is already head -> do nothing
+      // Subcase 2.2: node is not head
+      if (tmp->key != head->key) {
+        if (tmp->key == tail->key) {  // Subcase 2.2.1: node is tail
           tail = tmp->prevNode;
           tail->nextNode = nullptr;
           tmp->prevNode = nullptr;
@@ -182,10 +184,8 @@ class LRUCache<T>::iterator {
   }
 };
 
-
-
 int main() {
-  LRUCache<double> cache(3);
+  LRUCache<double> cache(4);
   cache.set(1,1.1);
   cache.set(2,2.2);
   cache.set(3,3.3);
@@ -193,9 +193,10 @@ int main() {
   cache.set(2,2.2);
   cache.set(3,3.3);
   cache.set(0,0.0);
+  cache.set(3, -7.0);
+
 
   cache.print();
-
   for (LRUCache<double>::iterator it = cache.begin(); it != cache.end(); it++) {
     cout << *it << " " << std::flush;
   }
