@@ -5,7 +5,6 @@
 using std::cout;
 using std::endl;
 
-
 template<class T>
 struct Node {
   Node * prevNode;
@@ -143,18 +142,6 @@ class LRUCache : public Cache<T> {
       return -1;
     }
   }
-
-  void print() {
-    Node<T> * runner = head;
-    while (true) {
-      cout << runner->value << " " << std::flush;
-      if (runner == tail) {
-        break;
-      }
-      runner = runner->nextNode;
-    }
-    cout << endl;
-  }
 };
 
 template<class T>
@@ -186,17 +173,14 @@ class LRUCache<T>::iterator {
 
 int main() {
   LRUCache<double> cache(4);
-  cache.set(1,1.1);
-  cache.set(2,2.2);
-  cache.set(3,3.3);
-  cache.set(4,4.4);
-  cache.set(2,2.2);
-  cache.set(3,3.3);
-  cache.set(0,0.0);
-  cache.set(3, -7.0);
+  cache.set(0, 1.7);
+  cache.set(1, -0.3);
+  cache.set(2, 1.0);
+  cache.set(3, 4.0);
+  cache.set(1, -0.3);
+  cache.set(2, 10);
+  cache.set(2, 11);
 
-
-  cache.print();
   for (LRUCache<double>::iterator it = cache.begin(); it != cache.end(); it++) {
     cout << *it << " " << std::flush;
   }
