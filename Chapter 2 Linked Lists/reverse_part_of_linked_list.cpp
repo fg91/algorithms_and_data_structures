@@ -60,7 +60,7 @@ void reversePart(shared_ptr<Node<T>> node_a, shared_ptr<Node<T>> node_b) {
   auto curr = node_a->next;
   auto prev = node_a;
 
-  while (curr != node_b) {
+  while (curr != nullptr && curr != node_b) {
     auto next = curr->next;
     curr->next = prev;
 
@@ -72,22 +72,28 @@ void reversePart(shared_ptr<Node<T>> node_a, shared_ptr<Node<T>> node_b) {
 
 template< class T>
 void reversePart(LinkedList<T> &list, T a, T b) {
+  /*
+    The solution assumes that the linked list contains a node 
+    with value a and after that a node with value b.
+   */
+
   assert(a != b);
   using nodePtr = shared_ptr<Node<T>>;
   
   nodePtr node_a = list.head;
   nodePtr before_node_a = nullptr;
 
-  while(node_a->value != a) {
+  while(node_a != nullptr && node_a->value != a) {
     before_node_a = node_a;
     node_a = node_a->next;
   }
 
   nodePtr node_b = node_a;
 
-  while(node_b->value != b) {
+  while(node_b != nullptr && node_b->value != b) {
     node_b = node_b->next;
   }
+
   nodePtr after_node_b = node_b->next;
 
   reversePart(node_a, node_b);
