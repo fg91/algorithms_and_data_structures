@@ -14,10 +14,10 @@ template<class T>
 class Node {
 public:
   T value;
-  shared_ptr<Node<int>> next;
+  shared_ptr<Node<T>> next;
 public:
   explicit Node(T value) : value(value), next(nullptr) {}
-  Node(T value, Node &next) : value(value), next(&next) {}
+  Node(T value, Node &next) : value(value), next(next) {}
 };
 
 template<class T>
